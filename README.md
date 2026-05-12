@@ -44,6 +44,7 @@ Want only Oh My Posh? Or just Starship? Run a single script.
 | Tool | Description | Install script |
 |---|---|---|
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
+| lf | Terminal file manager with `lfcd` shell integration | `install-lf.sh` |
 | Shell prediction menus | IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.sh` |
 | Starship | Cross-platform prompt (alternative) | `install-starship.sh` |
 | fzf | Fuzzy command finder (Ctrl+R) | `install-fzf.sh` |
@@ -57,6 +58,9 @@ Want only Oh My Posh? Or just Starship? Run a single script.
 ```bash
 # Oh My Posh
 curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-ohmyposh.sh | bash
+
+# lf file manager
+curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-lf.sh | bash
 
 # Starship
 curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-starship.sh | bash
@@ -85,11 +89,13 @@ dotfiles/
 │   ├── dot_zshrc                  # → ~/.zshrc (macOS)
 │   ├── dot_bashrc                 # → ~/.bashrc (Linux)
 │   ├── dot_config/                # -> ~/.config/
+│   │   ├── shell/lfcd.sh
 │   │   └── starship.toml
 │   └── AppData/                   # Windows-only files
 │       └── Local/...
 ├── scripts/                       # Standalone single-tool installers
 │   ├── install-ohmyposh.sh
+│   ├── install-lf.sh
 │   ├── install-starship.sh
 │   └── ...
 └── docs/                          # Setup notes
@@ -142,6 +148,18 @@ chezmoi apply               # applies your changes
 chezmoi cd                  # cd into the source repo
 git add . && git commit -m "tweak zsh" && git push
 ```
+
+---
+
+## Sources
+
+- chezmoi: https://github.com/twpayne/chezmoi
+- Oh My Posh: https://github.com/JanDeDobbeleer/oh-my-posh
+- lf: https://github.com/gokcehan/lf
+- inshellisense: https://github.com/microsoft/inshellisense
+- Starship: https://github.com/starship/starship
+- fzf: https://github.com/junegunn/fzf
+- atuin: https://github.com/atuinsh/atuin
 
 ---
 

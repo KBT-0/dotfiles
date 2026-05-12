@@ -24,20 +24,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-lfcd () {
-    tmp="$(mktemp)"
-    command lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
-        fi
-    fi
-}
-alias lf="lfcd"
+if [ -r "$HOME/.config/shell/lfcd.sh" ]; then
+    . "$HOME/.config/shell/lfcd.sh"
+fi
 
 # Oh My Posh prompt - same atomic theme used by the Windows PowerShell profile.
 if command -v oh-my-posh >/dev/null 2>&1; then
