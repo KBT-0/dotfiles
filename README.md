@@ -105,6 +105,10 @@ Live below-prompt command suggestions are aligned as follows:
 - Bash/Linux: `inshellisense` shell plugin
 - Zsh/macOS: `inshellisense` shell plugin
 
+Reference terminal screenshot:
+
+![Terminal reference](docs/reference/terminal.png)
+
 ---
 
 ## Pull just one file with chezmoi
