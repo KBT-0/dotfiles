@@ -11,6 +11,12 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
+# Load ble.sh before other interactive shell wiring so its line editor can
+# manage live completion menus and history predictions.
+if [[ $- == *i* ]] && [ -r "$HOME/.local/share/blesh/ble.sh" ]; then
+    source "$HOME/.local/share/blesh/ble.sh" --attach=none
+fi
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -42,4 +48,8 @@ alias lf="lfcd"
 # Oh My Posh prompt - same atomic theme used by the Windows PowerShell profile.
 if command -v oh-my-posh >/dev/null 2>&1; then
     eval "$(oh-my-posh init bash --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json)"
+fi
+
+if [[ ${BLE_VERSION-} ]]; then
+    ble-attach
 fi

@@ -42,6 +42,7 @@ Want only Oh My Posh? Or just Starship? Run a single script.
 | Tool | Description | Install script |
 |---|---|---|
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
+| Shell prediction menus | Live below-prompt history/completion suggestions | `install-shell-predictions.sh` |
 | Starship | Cross-platform prompt (alternative) | `install-starship.sh` |
 | fzf | Fuzzy command finder (Ctrl+R) | `install-fzf.sh` |
 | atuin | Cloud-sync shell history | `install-atuin.sh` |
@@ -60,6 +61,9 @@ curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install
 
 # fzf
 curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-fzf.sh | bash
+
+# Live shell prediction menus
+curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-shell-predictions.sh | bash
 ```
 
 **Windows (PowerShell):**
@@ -94,6 +98,12 @@ Oh My Posh uses the same atomic theme on PowerShell, bash, and zsh:
 ```text
 https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json
 ```
+
+Live below-prompt command suggestions are aligned as follows:
+
+- PowerShell: `PSReadLine` history predictions in `ListView`
+- Bash/Linux: `ble.sh` automatic completion menus
+- Zsh/macOS: `zsh-autocomplete` history-first suggestions
 
 ---
 
