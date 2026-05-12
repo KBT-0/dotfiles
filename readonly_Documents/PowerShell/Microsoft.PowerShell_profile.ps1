@@ -1,5 +1,5 @@
 # Oh My Posh prompt
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\atomic.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
 
 # PSReadLine: komut geçmişi öneri listesi
 Set-PSReadLineOption -PredictionSource History
