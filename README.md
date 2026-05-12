@@ -1,5 +1,7 @@
 # Kemal's Dotfiles
 
+![Terminal reference](docs/reference/terminal.png)
+
 Cross-platform development environment configs managed with [chezmoi](https://chezmoi.io).
 
 **Supported platforms:**
@@ -104,10 +106,6 @@ Live below-prompt command suggestions are aligned as follows:
 - PowerShell: `PSReadLine` history predictions in `ListView`
 - Bash/Linux: `inshellisense` shell plugin
 - Zsh/macOS: `inshellisense` shell plugin
-
-Reference terminal screenshot:
-
-![Terminal reference](docs/reference/terminal.png)
 
 ---
 
