@@ -1,4 +1,4 @@
-# Oh My Posh prompt
+# Oh My Posh prompt - atomic theme shared with bash/zsh profiles.
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
 
 # PSReadLine: komut geçmişi öneri listesi

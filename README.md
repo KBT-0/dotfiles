@@ -78,7 +78,7 @@ dotfiles/
 ├── home/                          # chezmoi-managed files (auto-applied)
 │   ├── dot_zshrc                  # → ~/.zshrc (macOS)
 │   ├── dot_bashrc                 # → ~/.bashrc (Linux)
-│   ├── private_dot_config/        # → ~/.config/
+│   ├── dot_config/                # -> ~/.config/
 │   │   └── starship.toml
 │   └── AppData/                   # Windows-only files
 │       └── Local/...
@@ -87,6 +87,12 @@ dotfiles/
 │   ├── install-starship.sh
 │   └── ...
 └── docs/                          # Setup notes
+```
+
+Oh My Posh uses the same atomic theme on PowerShell, bash, and zsh:
+
+```text
+https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json
 ```
 
 ---

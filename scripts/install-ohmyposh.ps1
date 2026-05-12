@@ -19,7 +19,7 @@ if (-not (Test-Path $PROFILE)) {
 }
 
 # 3. Add Oh My Posh init to profile (skip if already present)
-$initLine = 'oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\atomic.omp.json" | Invoke-Expression'
+$initLine = 'oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression'
 $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
 
 if ($profileContent -notmatch 'oh-my-posh init pwsh') {
