@@ -19,16 +19,10 @@ fi
 
 export PATH
 
-# zsh-autocomplete lists history/completion candidates below the prompt while
-# typing. The default context starts in incremental history search so it feels
-# close to PowerShell's PSReadLine ListView predictions.
-if [ -r "$HOME/.local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]; then
-    zstyle ':autocomplete:*' default-context history-incremental-search-backward
-    zstyle ':autocomplete:*:*' list-lines 10
-    source "$HOME/.local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
-fi
-
 # Oh My Posh prompt - same atomic theme used by the Windows PowerShell profile.
 if command -v oh-my-posh >/dev/null 2>&1; then
     eval "$(oh-my-posh init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json)"
 fi
+
+# inshellisense must stay last so its shell runtime can own the suggestion UI.
+[[ -f ~/.inshellisense/init/zsh/init.zsh ]] && source ~/.inshellisense/init/zsh/init.zsh
