@@ -30,3 +30,23 @@ fi
 
 # inshellisense must stay last so its shell runtime can own the suggestion UI.
 [[ -f ~/.inshellisense/init/zsh/init.zsh ]] && source ~/.inshellisense/init/zsh/init.zsh
+
+# zsh-autosuggestions: inline grey suggestions from history (→ to accept)
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+bindkey '^[[Z' autosuggest-accept  # Shift+Tab to accept full suggestion
+
+# zsh-history-substring-search: type prefix + ↑/↓ to walk through matching history
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Larger history file + share between sessions
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE=~/.zsh_history
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
