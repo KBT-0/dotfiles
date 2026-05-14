@@ -1,6 +1,6 @@
 # Oh My Posh prompt - atomic theme shared with bash/zsh profiles.
 if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
-    oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
+    oh-my-posh init pwsh --config atomic | Invoke-Expression
 }
 
 # PSReadLine: command history prediction list.

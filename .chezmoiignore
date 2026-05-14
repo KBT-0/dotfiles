@@ -1,0 +1,8 @@
+README.md
+docs/**
+scripts/**
+
+{{ if ne .chezmoi.os "windows" }}
+Documents
+Documents/PowerShell/**
+{{ end }}

@@ -116,11 +116,7 @@ dotfiles/
 └── docs/                          # Setup notes
 ```
 
-Oh My Posh uses the same atomic theme on PowerShell, bash, and zsh:
-
-```text
-https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json
-```
+Oh My Posh uses the built-in `atomic` theme on PowerShell, bash, and zsh.
 
 Live below-prompt command suggestions are aligned as follows:
 

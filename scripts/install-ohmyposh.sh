@@ -57,7 +57,7 @@ case "$SHELL_NAME" in
 esac
 
 echo "Detected: $OS with $SHELL_NAME ($RC_FILE)"
-THEME_URL="https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json"
+THEME_CONFIG="atomic"
 
 # 2. Install Oh My Posh
 if ! command -v oh-my-posh >/dev/null 2>&1; then
@@ -84,7 +84,7 @@ fi
 
 # 4. Add init line. If another Oh My Posh init exists, replace it so every
 # platform uses the same atomic theme as the Windows PowerShell profile.
-INIT_LINE="eval \"\$(oh-my-posh init $INIT_SHELL --config $THEME_URL)\""
+INIT_LINE="eval \"\$(oh-my-posh init $INIT_SHELL --config $THEME_CONFIG)\""
 
 if grep -q "oh-my-posh init" "$RC_FILE"; then
     sed -i.bak "s|.*oh-my-posh init.*|$INIT_LINE|" "$RC_FILE"

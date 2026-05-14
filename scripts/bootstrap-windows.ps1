@@ -4,7 +4,7 @@
 $ErrorActionPreference = "Stop"
 
 $RepoUrl = if ($env:DOTFILES_REPO_URL) { $env:DOTFILES_REPO_URL } else { "https://github.com/KBT-0/MyDotfiles.git" }
-$ThemeUrl = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json"
+$ThemeConfig = "atomic"
 
 function Write-Step {
     param([string] $Message)
@@ -83,7 +83,7 @@ function Ensure-PowerShellProfile {
     $profileContent = @"
 # Oh My Posh prompt - atomic theme shared with bash/zsh profiles.
 if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
-    oh-my-posh init pwsh --config "$ThemeUrl" | Invoke-Expression
+    oh-my-posh init pwsh --config $ThemeConfig | Invoke-Expression
 }
 
 # PSReadLine: command history prediction list.
