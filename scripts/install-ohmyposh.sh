@@ -2,7 +2,7 @@
 # install-ohmyposh.sh
 # Standalone installer for Oh My Posh on macOS / Linux
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-ohmyposh.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.sh | bash
 
 set -e
 

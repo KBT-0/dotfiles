@@ -1,6 +1,6 @@
 # install-ohmyposh.ps1
 # Standalone installer for Oh My Posh on Windows PowerShell 7+
-# Usage: irm https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-ohmyposh.ps1 | iex
+# Usage: irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.ps1 | iex
 
 Write-Host "==> Installing Oh My Posh..." -ForegroundColor Cyan
 

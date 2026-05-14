@@ -18,14 +18,14 @@ Install everything on a new machine with one command.
 ### macOS / Linux
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply KBT-0
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/KBT-0/MyDotfiles.git
 ```
 
 ### Windows (PowerShell 7)
 
 ```powershell
 winget install twpayne.chezmoi
-chezmoi init --apply KBT-0
+chezmoi init --apply https://github.com/KBT-0/MyDotfiles.git
 ```
 
 That's it — chezmoi will:
@@ -57,26 +57,26 @@ Want only Oh My Posh? Or just Starship? Run a single script.
 
 ```bash
 # Oh My Posh
-curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-ohmyposh.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.sh | bash
 
 # lf file manager
-curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-lf.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-lf.sh | bash
 
 # Starship
-curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-starship.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-starship.sh | bash
 
 # fzf
-curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-fzf.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-fzf.sh | bash
 
 # Live shell prediction menus
-curl -fsSL https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-shell-predictions.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-shell-predictions.sh | bash
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
 # Oh My Posh
-irm https://raw.githubusercontent.com/KBT-0/dotfiles/main/scripts/install-ohmyposh.ps1 | iex
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.ps1 | iex
 ```
 
 ---
@@ -120,7 +120,7 @@ Live below-prompt command suggestions are aligned as follows:
 If you already have chezmoi installed and only want one config:
 
 ```bash
-chezmoi init https://github.com/KBT-0/dotfiles.git  # clone without applying
+chezmoi init https://github.com/KBT-0/MyDotfiles.git  # clone without applying
 chezmoi cd                                          # go to source dir
 # inspect or selectively copy what you want
 chezmoi apply ~/.zshrc                              # apply just .zshrc
