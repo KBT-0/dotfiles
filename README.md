@@ -15,6 +15,16 @@ Cross-platform development environment configs managed with [chezmoi](https://ch
 
 Install everything on a new machine with one command.
 
+### Windows (PowerShell 7)
+
+Run PowerShell as Administrator:
+
+```powershell
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-windows.ps1 | iex
+```
+
+Then open a new Windows Terminal PowerShell 7 tab and set the profile font to `JetBrainsMono Nerd Font`.
+
 ### WSL / Linux
 
 ```bash
@@ -23,17 +33,11 @@ curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/boots
 
 This installs base packages, chezmoi, the dotfiles, Oh My Posh, lf + lfcd, and shell prediction menus.
 
-### Windows (PowerShell 7)
+### macOS
 
-```powershell
-winget install twpayne.chezmoi
-chezmoi init --apply https://github.com/KBT-0/MyDotfiles.git
+```bash
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-macos.sh | bash
 ```
-
-That's it — chezmoi will:
-1. Clone this repo
-2. Detect your OS
-3. Apply the right configs to the right places
 
 ---
 
@@ -45,7 +49,9 @@ Want the full WSL/Linux setup or just one tool? Run a single script.
 
 | Tool | Description | Install script |
 |---|---|---|
+| Windows Bootstrap | Full Windows PowerShell setup | `bootstrap-windows.ps1` |
 | Bootstrap | Full WSL/Linux setup | `bootstrap-wsl.sh` |
+| macOS Bootstrap | Full macOS setup | `bootstrap-macos.sh` |
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
 | lf | Terminal file manager with `lfcd` shell integration | `install-lf.sh` |
 | Shell prediction menus | IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.sh` |
@@ -71,8 +77,18 @@ curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/insta
 **Windows (PowerShell):**
 
 ```powershell
+# Full Windows PowerShell setup
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-windows.ps1 | iex
+
 # Oh My Posh
 irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.ps1 | iex
+```
+
+**macOS:**
+
+```bash
+# Full macOS setup
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-macos.sh | bash
 ```
 
 ---
@@ -90,7 +106,9 @@ dotfiles/
 │   └── AppData/                   # Windows-only files
 │       └── Local/...
 ├── scripts/                       # Standalone single-tool installers
+│   ├── bootstrap-windows.ps1
 │   ├── bootstrap-wsl.sh
+│   ├── bootstrap-macos.sh
 │   ├── install-ohmyposh.sh
 │   ├── install-lf.sh
 │   ├── install-shell-predictions.sh

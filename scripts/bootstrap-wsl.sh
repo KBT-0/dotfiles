@@ -26,18 +26,18 @@ install_base_packages() {
 
     if command -v dnf >/dev/null 2>&1; then
         run_root dnf update -y
-        run_root dnf install -y curl git zsh nodejs npm tar gzip findutils
+        run_root dnf install -y curl git zsh nodejs npm tar gzip findutils gawk
     elif command -v apt-get >/dev/null 2>&1; then
         run_root apt-get update
-        run_root apt-get install -y ca-certificates curl git zsh nodejs npm tar gzip findutils
+        run_root apt-get install -y ca-certificates curl git zsh nodejs npm tar gzip findutils gawk
     elif command -v pacman >/dev/null 2>&1; then
         run_root pacman -Syu --noconfirm
-        run_root pacman -S --needed --noconfirm curl git zsh nodejs npm tar gzip findutils
+        run_root pacman -S --needed --noconfirm curl git zsh nodejs npm tar gzip findutils gawk
     elif command -v zypper >/dev/null 2>&1; then
         run_root zypper refresh
-        run_root zypper install -y curl git zsh nodejs npm tar gzip findutils
+        run_root zypper install -y curl git zsh nodejs npm tar gzip findutils gawk
     else
-        echo "No supported package manager found. Need curl, git, zsh, nodejs, npm, tar, gzip, findutils." >&2
+        echo "No supported package manager found. Need curl, git, zsh, nodejs, npm, tar, gzip, findutils, gawk." >&2
         exit 1
     fi
 }

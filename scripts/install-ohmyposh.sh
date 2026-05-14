@@ -8,6 +8,39 @@ set -e
 
 echo "==> Installing Oh My Posh..."
 
+run_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        "$@"
+    elif command -v sudo >/dev/null 2>&1; then
+        sudo "$@"
+    else
+        echo "Need sudo or root privileges to install packages." >&2
+        exit 1
+    fi
+}
+
+ensure_awk() {
+    if command -v awk >/dev/null 2>&1; then
+        return
+    fi
+
+    echo "awk not found. Installing gawk..."
+
+    if command -v dnf >/dev/null 2>&1; then
+        run_root dnf install -y gawk
+    elif command -v apt-get >/dev/null 2>&1; then
+        run_root apt-get update
+        run_root apt-get install -y gawk
+    elif command -v pacman >/dev/null 2>&1; then
+        run_root pacman -S --needed --noconfirm gawk
+    elif command -v zypper >/dev/null 2>&1; then
+        run_root zypper install -y gawk
+    else
+        echo "No supported package manager found. Install awk/gawk manually, then re-run this script." >&2
+        exit 1
+    fi
+}
+
 # 1. Detect shell and OS
 OS="$(uname -s)"
 SHELL_NAME="$(basename "$SHELL")"
@@ -38,6 +71,7 @@ if ! command -v oh-my-posh >/dev/null 2>&1; then
         fi
     else
         # Linux: official installer
+        ensure_awk
         curl -s https://ohmyposh.dev/install.sh | bash -s
     fi
     echo "Oh My Posh installed."
