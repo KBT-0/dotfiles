@@ -25,6 +25,8 @@ irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-wi
 
 Then open a new Windows Terminal PowerShell 7 tab and set the profile font to `JetBrainsMono Nerd Font`.
 
+This installs PowerShell 7, Windows Terminal, chezmoi, Oh My Posh, lf + lfcd, and PSReadLine prediction menus.
+
 ### WSL / Linux
 
 ```bash
@@ -53,7 +55,7 @@ Want the full WSL/Linux setup or just one tool? Run a single script.
 | Bootstrap | Full WSL/Linux setup | `bootstrap-wsl.sh` |
 | macOS Bootstrap | Full macOS setup | `bootstrap-macos.sh` |
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
-| lf | Terminal file manager with `lfcd` shell integration | `install-lf.sh` |
+| lf | Terminal file manager with `lfcd` shell integration | `install-lf.*` |
 | Shell prediction menus | IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.sh` |
 
 ### One-line installers
@@ -82,6 +84,9 @@ irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-wi
 
 # Oh My Posh
 irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.ps1 | iex
+
+# lf file manager
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-lf.ps1 | iex
 ```
 
 **macOS:**
@@ -110,6 +115,7 @@ dotfiles/
 │   ├── bootstrap-wsl.sh
 │   ├── bootstrap-macos.sh
 │   ├── install-ohmyposh.sh
+│   ├── install-lf.ps1
 │   ├── install-lf.sh
 │   ├── install-shell-predictions.sh
 │   └── ...
