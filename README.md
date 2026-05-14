@@ -15,11 +15,13 @@ Cross-platform development environment configs managed with [chezmoi](https://ch
 
 Install everything on a new machine with one command.
 
-### macOS / Linux
+### WSL / Linux
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/KBT-0/MyDotfiles.git
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-wsl.sh | bash
 ```
+
+This installs base packages, chezmoi, the dotfiles, Oh My Posh, lf + lfcd, and shell prediction menus.
 
 ### Windows (PowerShell 7)
 
@@ -37,36 +39,30 @@ That's it — chezmoi will:
 
 ## Partial install (just one tool)
 
-Want only Oh My Posh? Or just Starship? Run a single script.
+Want the full WSL/Linux setup or just one tool? Run a single script.
 
 ### Available tools
 
 | Tool | Description | Install script |
 |---|---|---|
+| Bootstrap | Full WSL/Linux setup | `bootstrap-wsl.sh` |
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
 | lf | Terminal file manager with `lfcd` shell integration | `install-lf.sh` |
 | Shell prediction menus | IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.sh` |
-| Starship | Cross-platform prompt (alternative) | `install-starship.sh` |
-| fzf | Fuzzy command finder (Ctrl+R) | `install-fzf.sh` |
-| atuin | Cloud-sync shell history | `install-atuin.sh` |
-| PSReadLine config | PowerShell history & predictions | `install-psreadline.ps1` |
 
 ### One-line installers
 
-**macOS / Linux:**
+**WSL / Linux:**
 
 ```bash
+# Full WSL/Linux setup
+curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-wsl.sh | bash
+
 # Oh My Posh
 curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmyposh.sh | bash
 
 # lf file manager
 curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-lf.sh | bash
-
-# Starship
-curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-starship.sh | bash
-
-# fzf
-curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-fzf.sh | bash
 
 # Live shell prediction menus
 curl -fsSL https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-shell-predictions.sh | bash
@@ -94,9 +90,10 @@ dotfiles/
 │   └── AppData/                   # Windows-only files
 │       └── Local/...
 ├── scripts/                       # Standalone single-tool installers
+│   ├── bootstrap-wsl.sh
 │   ├── install-ohmyposh.sh
 │   ├── install-lf.sh
-│   ├── install-starship.sh
+│   ├── install-shell-predictions.sh
 │   └── ...
 └── docs/                          # Setup notes
 ```
