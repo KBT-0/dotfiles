@@ -25,7 +25,7 @@ irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/bootstrap-wi
 
 Then open a new Windows Terminal PowerShell 7 tab and set the profile font to `JetBrainsMono Nerd Font`.
 
-This installs PowerShell 7, Windows Terminal, chezmoi, Oh My Posh, lf + lfcd, and PSReadLine prediction menus.
+This installs PowerShell 7, Windows Terminal, chezmoi, Oh My Posh, lf + lfcd, and `inshellisense` prediction menus.
 
 ### WSL / Linux
 
@@ -56,7 +56,8 @@ Want the full WSL/Linux setup or just one tool? Run a single script.
 | macOS Bootstrap | Full macOS setup | `bootstrap-macos.sh` |
 | Oh My Posh | Prompt theming | `install-ohmyposh.*` |
 | lf | Terminal file manager with `lfcd` shell integration | `install-lf.*` |
-| Shell prediction menus | IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.sh` |
+| Shell prediction menus | Default IDE-style below-prompt suggestions via `inshellisense` | `install-shell-predictions.*` |
+| PowerShell predictions | Optional PowerShell-native `PSReadLine` ListView suggestions | `install-psreadline-predictions.ps1` |
 
 ### One-line installers
 
@@ -87,6 +88,12 @@ irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-ohmy
 
 # lf file manager
 irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-lf.ps1 | iex
+
+# Default live prediction menus via inshellisense
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-shell-predictions.ps1 | iex
+
+# Optional PSReadLine ListView predictions instead of inshellisense
+irm https://raw.githubusercontent.com/KBT-0/MyDotfiles/main/scripts/install-psreadline-predictions.ps1 | iex
 ```
 
 **macOS:**
@@ -117,18 +124,27 @@ dotfiles/
 │   ├── install-ohmyposh.sh
 │   ├── install-lf.ps1
 │   ├── install-lf.sh
+│   ├── install-shell-predictions.ps1
 │   ├── install-shell-predictions.sh
+│   ├── install-psreadline-predictions.ps1
 │   └── ...
 └── docs/                          # Setup notes
 ```
 
 Oh My Posh uses the built-in `atomic` theme on PowerShell, bash, and zsh.
 
-Live below-prompt command suggestions are aligned as follows:
+Live below-prompt command suggestions default to `inshellisense` on every supported OS:
 
-- PowerShell: `PSReadLine` history predictions in `ListView`
+- PowerShell: `inshellisense` shell plugin
 - Bash/Linux: `inshellisense` shell plugin
 - Zsh/macOS: `inshellisense` shell plugin
+
+On Windows, `PSReadLine` ListView is still available as an optional alternative. The prediction installers are intentionally mutually exclusive:
+
+- `install-shell-predictions.ps1` enables `inshellisense` and removes PSReadLine prediction hooks from `$PROFILE`.
+- `install-psreadline-predictions.ps1` enables PSReadLine `ListView` and removes the `inshellisense` profile hook.
+
+This only changes profile integration; it does not uninstall the other tool.
 
 ---
 
@@ -174,6 +190,7 @@ git add . && git commit -m "tweak zsh" && git push
 - Oh My Posh: https://github.com/JanDeDobbeleer/oh-my-posh
 - lf: https://github.com/gokcehan/lf
 - inshellisense: https://github.com/microsoft/inshellisense
+- PSReadLine: https://github.com/PowerShell/PSReadLine
 - Starship: https://github.com/starship/starship
 - fzf: https://github.com/junegunn/fzf
 - atuin: https://github.com/atuinsh/atuin

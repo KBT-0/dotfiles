@@ -20,16 +20,25 @@ if (-not (Test-Path $PROFILE)) {
 
 # 3. Add Oh My Posh init to profile (skip if already present)
 $initLine = 'oh-my-posh init pwsh --config atomic | Invoke-Expression'
+$initBlock = "# Oh My Posh prompt`r`n$initLine"
+$inshellisenseMarker = "# >>> inshellisense integration >>>"
 $profileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
 
 if ($profileContent -notmatch 'oh-my-posh init pwsh') {
-    Add-Content $PROFILE "`n# Oh My Posh prompt"
-    Add-Content $PROFILE $initLine
+    if ($profileContent -and $profileContent.Contains($inshellisenseMarker)) {
+        $index = $profileContent.IndexOf($inshellisenseMarker)
+        $before = $profileContent.Substring(0, $index).TrimEnd()
+        $after = $profileContent.Substring($index).TrimStart()
+        $profileContent = "$before`r`n`r`n$initBlock`r`n`r`n$after"
+        Set-Content -LiteralPath $PROFILE -Value $profileContent -Encoding UTF8
+    } else {
+        Add-Content $PROFILE "`n$initBlock"
+    }
     Write-Host "Added Oh My Posh init to `$PROFILE" -ForegroundColor Green
 } else {
-    Write-Host "Oh My Posh init already in `$PROFILE — skipping" -ForegroundColor Yellow
+    Write-Host "Oh My Posh init already in `$PROFILE - skipping" -ForegroundColor Yellow
 }
 
 Write-Host ""
 Write-Host "==> Done! Restart PowerShell or run: . `$PROFILE" -ForegroundColor Cyan
-Write-Host "==> Don't forget to install a Nerd Font: https://www.nerdfonts.com" -ForegroundColor Cyan
+Write-Host "==> Do not forget to install a Nerd Font: https://www.nerdfonts.com" -ForegroundColor Cyan

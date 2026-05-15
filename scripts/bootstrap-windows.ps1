@@ -18,6 +18,8 @@ function Refresh-Path {
         "$HOME\.local\bin",
         "$env:LOCALAPPDATA\Programs\oh-my-posh\bin",
         "$env:LOCALAPPDATA\Microsoft\WinGet\Links",
+        "$env:APPDATA\npm",
+        "$env:ProgramFiles\nodejs",
         "$env:ProgramFiles\PowerShell\7"
     )
 
@@ -139,6 +141,29 @@ function Ensure-PSReadLine {
     }
 }
 
+function Install-Inshellisense {
+    Write-Step "Installing inshellisense..."
+    Refresh-Path
+
+    if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
+        throw "npm not found after Node.js install. Open a new PowerShell tab and re-run this script."
+    }
+
+    npm install -g @microsoft/inshellisense
+
+    $npmBin = Join-Path $env:APPDATA "npm"
+    if (Test-Path -LiteralPath $npmBin) {
+        Add-UserPath $npmBin
+    }
+
+    Refresh-Path
+
+    $isCommand = Get-Command is -ErrorAction SilentlyContinue
+    if ($isCommand) {
+        & $isCommand.Source init pwsh | Out-Null
+    }
+}
+
 function Ensure-PowerShellProfile {
     Write-Step "Writing PowerShell 7 profile..."
 
@@ -184,13 +209,21 @@ function lfcd {
 Set-Alias -Name lf -Value lfcd -Option AllScope -Force
 # <<< lfcd integration <<<
 
-# PSReadLine: command history prediction list.
-if (Get-Module -ListAvailable -Name PSReadLine) {
-    Import-Module PSReadLine
-    try { Set-PSReadLineOption -PredictionSource History } catch {}
-    try { Set-PSReadLineOption -PredictionViewStyle ListView } catch {}
-    try { Set-PSReadLineOption -EditMode Windows } catch {}
-    try { Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete } catch {}
+# >>> inshellisense integration >>>
+# Default prediction UI. Keep this block last in the profile.
+`$InshellisenseNodeBin = Join-Path `$env:ProgramFiles "nodejs"
+if ((Test-Path -LiteralPath `$InshellisenseNodeBin) -and ((`$env:Path -split ';') -notcontains `$InshellisenseNodeBin)) {
+    `$env:Path = "`$InshellisenseNodeBin;`$env:Path"
+}
+
+`$InshellisenseNpmBin = Join-Path `$env:APPDATA "npm"
+if ((Test-Path -LiteralPath `$InshellisenseNpmBin) -and ((`$env:Path -split ';') -notcontains `$InshellisenseNpmBin)) {
+    `$env:Path = "`$InshellisenseNpmBin;`$env:Path"
+}
+
+`$InshellisensePwshInit = Join-Path `$HOME ".inshellisense\init\pwsh\init.ps1"
+if (Test-Path -LiteralPath `$InshellisensePwshInit -PathType Leaf) {
+    . `$InshellisensePwshInit
 }
 '@
 
@@ -233,10 +266,11 @@ Install-WingetPackage -Id "Microsoft.PowerShell" -Name "PowerShell 7" -Command "
 Install-WingetPackage -Id "Microsoft.WindowsTerminal" -Name "Windows Terminal" -Command "wt"
 Install-WingetPackage -Id "twpayne.chezmoi" -Name "chezmoi" -Command "chezmoi"
 Install-WingetPackage -Id "JanDeDobbeleer.OhMyPosh" -Name "Oh My Posh" -Command "oh-my-posh"
+Install-WingetPackage -Id "OpenJS.NodeJS.LTS" -Name "Node.js LTS" -Command "npm"
 Install-Lf
+Install-Inshellisense
 
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
-Ensure-PSReadLine
 Apply-Dotfiles
 Ensure-PowerShellProfile
 Install-JetBrainsNerdFont
@@ -249,5 +283,5 @@ Write-Host "    `$PSVersionTable.PSVersion"
 Write-Host "    oh-my-posh --version"
 Write-Host "    lf -version"
 Write-Host "    Get-Command lfcd"
-Write-Host "    Get-Module PSReadLine -ListAvailable"
+Write-Host "    is --version"
 Write-Host "    chezmoi status"

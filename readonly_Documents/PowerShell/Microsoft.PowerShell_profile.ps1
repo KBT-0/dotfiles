@@ -35,11 +35,19 @@ function lfcd {
 Set-Alias -Name lf -Value lfcd -Option AllScope -Force
 # <<< lfcd integration <<<
 
-# PSReadLine: command history prediction list.
-if (Get-Module -ListAvailable -Name PSReadLine) {
-    Import-Module PSReadLine
-    try { Set-PSReadLineOption -PredictionSource History } catch {}
-    try { Set-PSReadLineOption -PredictionViewStyle ListView } catch {}
-    try { Set-PSReadLineOption -EditMode Windows } catch {}
-    try { Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete } catch {}
+# >>> inshellisense integration >>>
+# Default prediction UI. Keep this block last in the profile.
+$InshellisenseNodeBin = Join-Path $env:ProgramFiles "nodejs"
+if ((Test-Path -LiteralPath $InshellisenseNodeBin) -and (($env:Path -split ';') -notcontains $InshellisenseNodeBin)) {
+    $env:Path = "$InshellisenseNodeBin;$env:Path"
+}
+
+$InshellisenseNpmBin = Join-Path $env:APPDATA "npm"
+if ((Test-Path -LiteralPath $InshellisenseNpmBin) -and (($env:Path -split ';') -notcontains $InshellisenseNpmBin)) {
+    $env:Path = "$InshellisenseNpmBin;$env:Path"
+}
+
+$InshellisensePwshInit = Join-Path $HOME ".inshellisense\init\pwsh\init.ps1"
+if (Test-Path -LiteralPath $InshellisensePwshInit -PathType Leaf) {
+    . $InshellisensePwshInit
 }

@@ -122,12 +122,20 @@ $endMarker
         $content = ""
     }
 
+    $inshellisenseMarker = "# >>> inshellisense integration >>>"
+
     if ($content.Contains($beginMarker)) {
         $pattern = "(?s)" + [regex]::Escape($beginMarker) + ".*?" + [regex]::Escape($endMarker)
         $content = [regex]::Replace($content, $pattern, [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $block })
         Set-Content -LiteralPath $PROFILE -Value $content -Encoding UTF8
     } elseif ($content -match 'function\s+lfcd') {
         Write-Host "PowerShell profile already contains lfcd." -ForegroundColor Green
+    } elseif ($content.Contains($inshellisenseMarker)) {
+        $index = $content.IndexOf($inshellisenseMarker)
+        $before = $content.Substring(0, $index).TrimEnd()
+        $after = $content.Substring($index).TrimStart()
+        $content = "$before`r`n`r`n$block`r`n$after"
+        Set-Content -LiteralPath $PROFILE -Value $content -Encoding UTF8
     } else {
         Add-Content -LiteralPath $PROFILE -Value "`n$block" -Encoding UTF8
     }
