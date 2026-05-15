@@ -28,9 +28,6 @@ if command -v oh-my-posh >/dev/null 2>&1; then
     eval "$(oh-my-posh init zsh --config atomic)"
 fi
 
-# inshellisense must stay last so its shell runtime can own the suggestion UI.
-[[ -f ~/.inshellisense/init/zsh/init.zsh ]] && source ~/.inshellisense/init/zsh/init.zsh
-
 # zsh-autosuggestions: inline grey suggestions from history (→ to accept)
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -50,3 +47,6 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
+
+# inshellisense must stay last so its shell runtime can own the suggestion UI.
+[[ -f ~/.inshellisense/init/zsh/init.zsh ]] && source ~/.inshellisense/init/zsh/init.zsh
