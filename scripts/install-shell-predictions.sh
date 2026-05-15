@@ -19,6 +19,19 @@ load_homebrew() {
     fi
 }
 
+repair_homebrew_node() {
+    echo "==> Installing/repairing Node.js with Homebrew..."
+    brew install node || true
+
+    if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+        brew reinstall node
+    fi
+
+    brew link --overwrite node || true
+    hash -r 2>/dev/null || true
+    load_homebrew
+}
+
 install_node_with_package_manager() {
     case "$(uname -s)" in
         Darwin)
@@ -29,9 +42,7 @@ install_node_with_package_manager() {
                 exit 1
             fi
 
-            echo "==> Installing Node.js with Homebrew..."
-            brew install node
-            load_homebrew
+            repair_homebrew_node
             ;;
         Linux)
             if command -v dnf >/dev/null 2>&1; then
@@ -52,6 +63,7 @@ install_node_with_package_manager() {
                 echo "Install node and npm first, then re-run this script." >&2
                 exit 1
             fi
+            hash -r 2>/dev/null || true
             ;;
         *)
             echo "Need Node.js/npm to install inshellisense." >&2
