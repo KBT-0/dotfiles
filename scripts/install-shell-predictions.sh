@@ -7,11 +7,77 @@ PREFIX="${INSHELLISENSE_NPM_PREFIX:-$HOME/.local}"
 BIN_DIR="$PREFIX/bin"
 IS_BIN="$BIN_DIR/is"
 
-if ! command -v npm >/dev/null 2>&1; then
-    echo "Need npm to install inshellisense." >&2
-    echo "Install Node.js/npm first, then re-run this script." >&2
-    exit 1
-fi
+load_homebrew() {
+    if command -v brew >/dev/null 2>&1; then
+        return
+    fi
+
+    if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/bin/brew ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+}
+
+install_node_with_package_manager() {
+    case "$(uname -s)" in
+        Darwin)
+            load_homebrew
+            if ! command -v brew >/dev/null 2>&1; then
+                echo "Need Node.js/npm to install inshellisense." >&2
+                echo "Install Homebrew or Node.js first, then re-run this script." >&2
+                exit 1
+            fi
+
+            echo "==> Installing Node.js with Homebrew..."
+            brew install node
+            load_homebrew
+            ;;
+        Linux)
+            if command -v dnf >/dev/null 2>&1; then
+                echo "==> Installing Node.js/npm with dnf..."
+                sudo dnf install -y nodejs npm
+            elif command -v apt-get >/dev/null 2>&1; then
+                echo "==> Installing Node.js/npm with apt..."
+                sudo apt-get update
+                sudo apt-get install -y nodejs npm
+            elif command -v pacman >/dev/null 2>&1; then
+                echo "==> Installing Node.js/npm with pacman..."
+                sudo pacman -S --needed --noconfirm nodejs npm
+            elif command -v apk >/dev/null 2>&1; then
+                echo "==> Installing Node.js/npm with apk..."
+                sudo apk add nodejs npm
+            else
+                echo "Need Node.js/npm to install inshellisense." >&2
+                echo "Install node and npm first, then re-run this script." >&2
+                exit 1
+            fi
+            ;;
+        *)
+            echo "Need Node.js/npm to install inshellisense." >&2
+            echo "Install node and npm first, then re-run this script." >&2
+            exit 1
+            ;;
+    esac
+}
+
+ensure_node_and_npm() {
+    load_homebrew
+
+    if command -v node >/dev/null 2>&1 && command -v npm >/dev/null 2>&1; then
+        return
+    fi
+
+    install_node_with_package_manager
+
+    if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+        echo "Node.js/npm installation finished, but node or npm is still not on PATH." >&2
+        echo "Restart the terminal and re-run this script." >&2
+        exit 1
+    fi
+}
+
+ensure_node_and_npm
 
 mkdir -p "$PREFIX"
 export PATH="$BIN_DIR:$PATH"
